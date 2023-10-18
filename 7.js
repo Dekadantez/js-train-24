@@ -4,6 +4,35 @@ console.log("Завдання: 7 ==============================");
 function task7() {
   // Створюємо новий проміс.
   // Використовуємо функцію setInterval, щоб виконати функцію кожну секунду.
+  const promise = new Promise((resolve, reject) => {
+    let intervalid = setInterval(() => {
+      const date = new Date();
+      const seconds = date.getSeconds();
+      console.log(`Поточні секунди: ${seconds}`);
+      if (seconds % 10 === 0) {
+        setTimeout(() => {
+          clearInterval(intervalid);
+        });
+        resolve("Поточні секунди кратні 10!");
+      }
+      if (seconds % 3 === 0) {
+        setTimeout(() => {
+          clearInterval(intervalid);
+        });
+        reject("Поточні секунди кратні 3!");
+      }
+    }, 1000);
+  });
+  promise
+    .then((value) => {
+      console.log(`Проміс зарезолвився з значенням: ${value}`);
+    })
+    .catch((error) => {
+      console.log(`Проміс відхилився з помилкою: ${error}`);
+    })
+    .finally(() => {
+      console.log("Проміс завершено");
+    });
   // Отримаємо поточну дату та час
   // Отримуємо секунди з поточної дати
   // Виводимо в консоль повідомлення `Поточні секунди: ${seconds}`
